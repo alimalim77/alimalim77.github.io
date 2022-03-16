@@ -1,185 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title>Personal Portfolio</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <style>
-*{
-  box-sizing: border-box;
-}
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Richard Hendricks's Portfolio</title>
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 
-#projects{
-  padding-top: 0;
-  margin-top: 0;
-  padding-bottom: 70px;
-  background-color: #F5EFFF;
-}
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;700;800;900&family=Kanit:wght@800&display=swap"
+    rel="stylesheet" />
+  <!-- Bootstrap Icon-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css" />
+  <!-- Animate CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-#social{
-  padding-top: 0;
-  background-color: white;
-  display: block;
-  margin-top: 0;
-  padding-bottom: 50px;
-}
+  <!-- SplideJs Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.2.1/dist/css/splide.min.css" />
+  <!-- App Styles -->
+  <link rel="stylesheet" href="styles/app.css" />
+  <!-- Text Animation -->
+  <style>
+    .typetext {
+      font-family: 'Raleway', sans-serif;
+      padding: 3em 2em;
+      font-size: 18px;
+      background: #222;
+      color: #aaa
+    }
 
-ul > li{
-  font-size: 40px;
-  display: inline;
-  margin: 10px;
-  padding-bottom: 20px;
-}
+    typetext>h1,
+    h2 {
+      font-weight: 200;
+      margin: 0.4em 0;
+    }
 
-#navbar{
-  z-index: 2;
-  position: fixed;
-}
+    typetext>h1 {
+      font-size: 3.5em;
+    }
 
-nav{
-  background-color: #83C5BE;
-  color: white;
-  width: 100%;
-  
-  display: flex;
-  justify-content: flex-end; 
-  padding: 20px;
-  z-index: 1;
-  
-  
-}
+    typetext>h2 {
+      color: #888;
+      font-size: 2em;
+    }
+  </style>
 
-nav a{
-  margin-left: 20px;
-  color: #2E4057;
-  text-decoration: none;
-  font-weight: bold;
-}
+  <script>
+    var TxtRotate = function (el, toRotate, period) {
+      this.toRotate = toRotate;
+      this.el = el;
+      this.loopNum = 0;
+      this.period = parseInt(period, 5) || 1000;
+      this.txt = '';
+      this.tick();
+      this.isDeleting = false;
+    };
 
-.project-tile{
-  display: block;
-  text-align: center;
-  text-decoration: none;
-}
+    TxtRotate.prototype.tick = function () {
+      var i = this.loopNum % this.toRotate.length;
+      var fullTxt = this.toRotate[i];
 
-body{
-  font-family: 'Lato',sans-serif;
-  margin: 0;
-}
+      if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+      } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+      }
 
-header{
-  
-  background-image: url("https://unsplash.com/photos/XEB8y0nRRP4/download?force=true");
-  background-size: cover;
-  background-position: center center;
-  color: white;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;  
-  flex-direction: column; 
-  position: relative;
-}
+      this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
 
-section{
-  text-align: center;
-}
+      var that = this;
+      var delta = 300 - Math.random() * 100;
 
-#welcome-section{
- height: 80vh;
-  z-index: 4;
-  display: block;
-}
+      if (this.isDeleting) { delta /= 2; }
 
- header::after {
-   content: '';
-   background-color: black;
-   position: absolute;
-   top:0; 
-   left:0;
-   bottom: 0;
-   right: 0;
-   opacity: 0.6;
-   
-}
+      if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+      }
 
-header *{
-  position: relative;
-  z-index: 1;
-  /*margin: auto;*/
-}
+      setTimeout(function () {
+        that.tick();
+      }, delta);
+    };
 
-header h1{
-  font-size: 50px;
-  
-}
+    window.onload = function () {
+      var elements = document.getElementsByClassName('txt-rotate');
+      for (var i = 0; i < elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-rotate');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtRotate(elements[i], JSON.parse(toRotate), period);
+        }
+      }
+      // INJECT CSS
+      var css = document.createElement("style");
+      css.type = "text/css";
+      css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+      document.body.appendChild(css);
+    };
+  </script>
+</head>
 
-header h2{
-  font-size: 20px;
-  
-}
+<body>
+  <header class="header">
+    <div class="animate__animated animate__slideInDown">
+      <div class="container">
+        <h1 class="header__logo">
+          <a href="/"> A. </a>
+        </h1>
+        <nav class="navigation">
+          <ul>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
 
-footer{
-  background-color: #CFD186;
-  color: black;
-  padding: 12px;
-  text-align: center;
-}
-
-footer .fa-heart{
-  color: red;
-}
-
-@media(min-width: 400px){
-  #navbar{
-    position: relative;
-  }
-}
-        </style>
-    </head>
-    <body>
-<nav id="navbar">
-    <a href="#about">About </a>
-    <a href="#projects">Projects</a>
-    <a href="#social">Social</a>
-  </nav>
-  <welcome id="welcome-section">
-  <header id="about">
-  <h1>Hello! It's Alim🐱‍🏍</h1>
-    <h2>Let me show you the cool websites I made. 😃✔</h2>
+          </ul>
+          <a class="btn btn--main" href="assets/resume.pdf" download>
+            <i class="bi bi-download"></i> Resume
+          </a>
+        </nav>
+        <div class="header__resume">
+          <a class="btn btn--main" href="assets/resume.pdf" download>
+            <i class="bi bi-download"></i> Resume
+          </a>
+        </div>
+        <div class="header__mobile">
+          <button id="navigation-button">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </header>
-</welcome>
- 
-  
-  <section id="projects">
-    <h1 style="background-color: yellow; font-size: 25px; text-align:center; margin-top: 0; padding: 20px;">Projects</h1>
-    <br><br>
-    <a href="https://codepen.io/alimalim77/pen/RwgdjjO" target="_blank" class="project-tile"><img src="https://cdn2.iconfinder.com/data/icons/strongicon-vol-22/24/filetype-24-1024.png" alt="No image" height=60px width=60px ><br>Technical Documentation Page</a>
-    <br>
-    <a href="https://codepen.io/alimalim77/pen/jOweGoa" target="_blank" class="project-tile"><img src="https://cdn2.iconfinder.com/data/icons/strongicon-vol-22/24/tool-30-1024.png" alt="No image" height=60px width=60px ><br>Clubs Home Page</a>
+
+  <!-- Hero Section -->
+  <section class="col">
+    <div class="container">
+      <div class="hero__wrapper">
+        <h1 class="hero__title animate__animated animate__slideInDown">
+          CODE AND CONTENT <i class="bi bi-heart"></i>
+          <div class="typetext">
+            <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+            <h1>I am a
+              <span class="txt-rotate" data-period="2000"
+                data-rotate='[ "Developer. ⌨️ ", "Content Creator. 🎀", "Technical Writer. ✒️", "Youtuber. 🎥" ]'></span>
+            </h1>
+            <h2>A single &lt;span&gt; is all you need.</h2>
+          </div>
+
+        </h1>
+        <p class="hero__content animate__animated animate__slideInDown ">
+          Alim is a final year student with demonstrated skills ranging from development,
+          software solutions to web-based content and project managment skills.
+        </p>
+        <section>
+          <div>
+            <ul class="social">
+              <li>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="bi bi-github"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="bi bi-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="bi bi-chat-square-quote"></i></a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <div class="hero__img" style="background-image: url('assets/curve.png')">
+          <div class="hero__imgCircle animate__animated animate__slideInUp">
+            <img src="assets/img_portfolio.png" alt="Profile Picture" />
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="social">
-    <h2 style="margin-top: 0; background-color: green; padding : 20px;">Social Networking Links</h2>
-    <br>
-    <p style="font-family: sans-serif;">Find me on these platforms</p><br>
-    <ul style="list-style-type: none;">
-      <li ><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-      <li ><a href="https://www.instagram.com/alymxd/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-      <li><a href="https://www.linkedin.com/in/mohammad-alim-90a91835/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-      <li><a id="profile-link" href="https://github.com/alimalim77" target="_blank"><i class="fab fa-github"></i></a></li>
-      <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
-    </ul>
-    
- <div id="googleMap" style="border: 3px solid rgb(228, 174, 174); overflow: hidden; margin: 15px auto; max-width: 736px;">
-  <iframe scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3574.7839956471666!2d80.43400101408513!3d26.365847589766823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c42168d83c455%3A0x464480de38dc4686!2sAllenhouse%20Institute%20of%20Technology%20%7C%20Engineering%20College%20in%20Kanpur%20%7C%20Best%20Engineering%20College%20in%20Kanpur%20%7C%20Top%20Engineering%20College%20in%20Kanpur!5e0!3m2!1sen!2sin!4v1634029509108!5m2!1sen!2sin" style="border: 0px none; margin-left: -185px; height: 859px; margin-top: -533px; width: 926px;">
-  </iframe>
-  </div>
-  </section>     
-      <br><br>
 
-    
   
-  <footer>Made with <i class="fas fa-heart"></i> By Alim</footer>
-  </body>
- </html>
+
+  <!-- Portfolio Section -->
+
+  <section class="section animate__animated animate__slideInUp" id="portfolio">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <h2 class="section__title">Portfolio</h2>
+        <p class="section__subtitle">See my latest work</p> 
+      </div>
+      <div class="portfolio">
+        <div class="portfolio__box">
+          <div class="portfolio__img">
+            <img src="assets/portfolio-01.jpg" alt="Portfolio Items" />
+          </div>
+          <div class="portfolio__info">
+            <h3 class="portfolio__title">Pied Piper</h3>
+            <p class="portfolio__content">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto dignissimos
+              pariatur dolor vitae assumenda, porro quaerat corporis quos placeat a alias
+              molestiae, totam, dolore cum perspiciatis. Voluptate dolorem doloremque nobis.
+            </p>
+            <a class="portfolio__link" href="#">See Work <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="portfolio__box">
+          <div class="portfolio__img">
+            <img src="assets/portfolio-02.jpg" alt="Portfolio Items" />
+          </div>
+          <div class="portfolio__info">
+            <h3 class="portfolio__title">Divine Experience</h3>
+            <p class="portfolio__content">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto dignissimos
+              pariatur dolor vitae assumenda, porro quaerat corporis quos placeat a alias
+              molestiae, totam, dolore cum perspiciatis. Voluptate dolorem doloremque nobis.
+            </p>
+            <a class="portfolio__link" href="#">See Work <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="portfolio__box">
+          <div class="portfolio__img">
+            <img src="assets/portfolio-04.jpg" alt="Portfolio Items" />
+          </div>
+          <div class="portfolio__info">
+            <h3 class="portfolio__title">Accern Service</h3>
+            <p class="portfolio__content">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto dignissimos
+              pariatur dolor vitae assumenda, porro quaerat corporis quos placeat a alias
+              molestiae, totam, dolore cum perspiciatis. Voluptate dolorem doloremque nobis.
+            </p>
+            <a class="portfolio__link" href="#">See Work <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="portfolio__box">
+          <div class="portfolio__img">
+            <img src="assets/portfolio-03.jpg" alt="Portfolio Items" />
+          </div>
+          <div class="portfolio__info">
+            <h3 class="portfolio__title">Three dots</h3>
+            <p class="portfolio__content">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto dignissimos
+              pariatur dolor vitae assumenda, porro quaerat corporis quos placeat a alias
+              molestiae, totam, dolore cum perspiciatis. Voluptate dolorem doloremque nobis.
+            </p>
+            <a class="portfolio__link" href="#">See Work <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="section__footer">
+          <a href="#contact">
+            Ask for More Projects
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div> -->
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about">
+        <div class="about__left">
+          <div class="section__header">
+            <h2 class="section__title">About</h2>
+            <p class="section__subtitle">Few things about me</p>
+          </div>
+          <p class="about__bio">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate sed voluptatum
+            quibusdam nulla ullam vitae et, error molestiae porro nisi fugiat dolorum! Ut, commodi
+            quam sunt eveniet, itaque quas a iure reprehenderit, quae corrupti quod quidem unde
+            consequuntur? Distinctio, nemo?
+          </p>
+          <h4 class="about__skillsTitle">Skills</h4>
+          <ul class="about__skillsList">
+            <li>Python</li>
+            <li>Django</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <li>Figma</li>
+            <li>Postgres</li>
+            <li>WordPress</li>
+          </ul>
+        </div>
+        <div class="about__right">
+          <img src="assets/avatar.png" alt="Profile Picture" v />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="container">
+    <div class="section" id="testimonials">
+      <div class="section__header section__header--center">
+        <h2 class="section__title">People Says</h2>
+        <p class="section__subtitle">What others think about me</p>
+      </div>
+      <div class="testimonials">
+        <div class="splide">
+          <div class="splide__track">
+            <div class="splide__list">
+              <div class="testimonials__box splide__slide">
+                <iframe width="50%" height="50%" src="https://www.youtube.com/embed/2bjVWclBD_s"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section style="display:grid">
+    <center>
+      <p style="max-width: fit-content;  max-height: fit-content;"><img
+          src="https://leetcode.card.workers.dev/?username=alimalim77&theme=dark&show_rank=False" alt="alimalim77" />
+        <img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=alimalim77&" alt="alimalim77" />
+      </p>
+      <br>
+      <p style="max-width: fit-content; max-height: fit-content;"></p>
+    </center>
+    <br>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact">
+        <div class="contact__left">
+          <div class="section__header">
+            <h2 class="section__title">Contact Me</h2>
+            <p class="section__subtitle">Reach out to me, 24/7</p>
+          </div>
+          <div class="contact__info">
+            <p>Email Me:</p>
+            <a href="mailto:">hello@elrichbachman.com</a>
+          </div>
+
+          <div class="contact__info">
+            <p>Call Me:</p>
+            <a href="tel:">(441) 92135 1212</a>
+          </div>
+
+          <div class="contact__info">
+            <p>Follow Me:</p>
+            <ul class="social">
+              <li>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="bi bi-github"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="bi bi-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="contact__right">
+          <form class="contact__form" action="#" method="post">
+            <div class="contact__fields">
+              <label for="name">Name</label>
+              <input type="name" name="name" id="name" placeholder="Your Name" />
+            </div>
+            <div class="contact__fields">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" placeholder="Email Address" />
+            </div>
+            <div class="contact__fields">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" placeholder="Write Message..."></textarea>
+            </div>
+            <div class="contact__fields">
+              <button class="btn btn--main" type="submit">
+                Send Message <i class="bi bi-arrow-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Github section-->
+  </section>
+
+
+
+
+
+  <footer class="footer">
+    <div class="footer__copyright">
+      <p>Made with &hearts; by <a href="/">devfolio.io</a></p>
+    </div>
+  </footer>
+
+  <!-- SplideJs v3 -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.2.1/dist/js/splide.min.js"></script>
+  <!-- Scroll Reveal -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <!-- App Scripts -->
+  <script src="scripts/app.js"></script>
+  <!--Text Generator script-->
+  <script>
+    function resizeIframe(obj) {
+      obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+  </script>
+</body>
+
+</html>
