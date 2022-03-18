@@ -6,8 +6,19 @@
   font-family: 'Abel', sans-serif;
 }
 
+#imgds{
+    background-image: url("icons/ds_back.jpg");
+    
+}
 
 
+
+.bottomer{
+    margin-top: 40px;
+}
+.topper{
+    margin-top: -80px;
+}
   
 
 .main-card{
@@ -35,6 +46,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 2rem;
   transition: top 1s ease, background-color 2s ease;
   cursor: default;
@@ -48,8 +60,9 @@
   top: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: top;
   font-size: 2rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   transition: top 1s ease, background-color 2s ease;
   cursor: default;
 }
@@ -57,11 +70,13 @@
 .main-card:hover .down-card{
   top: 200px;
   background-color: royalblue;
+  align-items: center;
 }
 
 .main-card:hover .up-card{
   top: -100px;
   background-color: lightpink;
+  align-items: center;
 }
 
 .main-card:hover{
