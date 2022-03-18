@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Abel&display=swap');
+
+.reveal{
+  margin-top: 50px;
+  padding: 0;
+  font-family: 'Abel', sans-serif;
+}
+
+
+
+  
+
+.main-card{
+  color: white;
+  width: 200px;
+  background-color: #121212;
+  height: 200px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  text-align: center;
+  align-items: center;
+  transition: box-shadow 2s ease;
+  cursor: default;
+}
+
+.up-card{
+  width: 100%;
+  height: 100px;
+  background-color: #191919;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  transition: top 1s ease, background-color 2s ease;
+  cursor: default;
+}
+
+.down-card{
+  width: 100%;
+  height: 100px;
+  background-color: #191919;
+  position: absolute;
+  top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  transition: top 1s ease, background-color 2s ease;
+  cursor: default;
+}
+
+.main-card:hover .down-card{
+  top: 200px;
+  background-color: royalblue;
+}
+
+.main-card:hover .up-card{
+  top: -100px;
+  background-color: lightpink;
+}
+
+.main-card:hover{
+  box-shadow: 0 0 30px 2px black;
+}
+
+
+
+.imgfloat{
+    width: 200px;
+    height: 500px;
+    position: relative;
+    animation: floatBubble 2s inifnate;
+    animation-direction: normal;
+    }
+    @keyframes floatBubble{
+     0% {
+            top:0;
+            -webkit-animation-timing-function: ease-in;
+    
+       }
+    
+    
+       100% {
+          top: 500px;
+          animation-timing-function: ease-out;
+       }
+    }

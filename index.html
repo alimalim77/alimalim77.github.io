@@ -24,6 +24,7 @@
   <!-- App Styles -->
   <link rel="stylesheet" href="styles/app.css" />
   <!-- Text Animation -->
+
   <style>
     .typetext {
       font-family: 'Raleway', sans-serif;
@@ -48,7 +49,7 @@
       font-size: 2em;
     }
   </style>
-
+  <link rel="stylesheet" href="imagefloater.css">
   <script>
     var TxtRotate = function (el, toRotate, period) {
       this.toRotate = toRotate;
@@ -114,7 +115,9 @@
     <div class="animate__animated animate__slideInDown">
       <div class="container">
         <h1 class="header__logo">
-          <a href="/"> A. </a>
+          <div class="imagefloat" style="max-width: 60px; max-height: 65px;">
+          <img  src="icons/avatar.png">
+          </div>
         </h1>
         <nav class="navigation">
           <ul>
@@ -142,8 +145,9 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="col">
+  
     <div class="container">
+      
       <div class="hero__wrapper">
         <h1 class="hero__title animate__animated animate__slideInDown">
           CODE AND CONTENT <i class="bi bi-heart"></i>
@@ -186,10 +190,33 @@
         </div>
       </div>
     </div>
-  </section>
-
-
-  
+    
+    <!--Detail of subjects-->
+  <br>
+    <section class="section reveal" id="portfolio">
+      <div class="container">
+        <span class="main-card">
+          Scored 78% in PCM. Represented School in City-Based Basketball Tournament
+          <div class="up-card">
+            2016-18
+          </div>
+          
+          <div class="down-card">
+            Dr. VSMPS
+          </div>
+        </span>
+        <span style="margin-left: 100px;"></span>
+        <span class="main-card">
+          7.8 CGPA until 6th semester
+          <div class="up-card">
+            2019-23
+          </div>
+          <div class="down-card">
+            AIT, Kanpur
+          </div>
+        </span>
+          </div>
+        </div>
 
   <!-- Portfolio Section -->
 
@@ -202,7 +229,7 @@
       <div class="portfolio">
         <div class="portfolio__box">
           <div class="portfolio__img">
-            <img src="assets/portfolio-01.jpg" alt="Portfolio Items" />
+            <img src="assets/portfolio-01.png" alt="Portfolio Items" />
           </div>
           <div class="portfolio__info">
             <h3 class="portfolio__title">Pied Piper</h3>
@@ -244,7 +271,7 @@
         </div>
         <div class="portfolio__box">
           <div class="portfolio__img">
-            <img src="assets/portfolio-03.jpg" alt="Portfolio Items" />
+            <img  src="assets/portfolio-03.jpg" alt="Portfolio Items" />
           </div>
           <div class="portfolio__info">
             <h3 class="portfolio__title">Three dots</h3>
