@@ -74,7 +74,7 @@
 }
 
 .main-card:hover .up-card{
-  top: -100px;
+  top: -200px;
   background-color: lightpink;
   align-items: center;
 }
