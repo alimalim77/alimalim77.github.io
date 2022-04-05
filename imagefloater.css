@@ -65,18 +65,19 @@
 
 .main-card:hover .down-card{
   top: 200px;
-  background-color: royalblue;
+  background-color: #royalblue;
   align-items: center;
 }
 
 .main-card:hover .up-card{
-  top: -100px;
-  background-color: lightpink;
+  top: -90px;
+  background-color: #lightpink;
   align-items: center;
 }
 
 .main-card:hover{
   box-shadow: 0 0 30px 2px black;
+  background-color:blue
 }
 
 
