@@ -423,6 +423,8 @@ img {
   .portfolio__content {
     text-align: justify;
     padding-right: 12px;
+    font-weight: bold;
+    color: whitesmoke;
     padding-left: 8px;
     margin-bottom: 1rem; }
   .portfolio__link {
@@ -490,8 +492,8 @@ img {
           padding: 0.5rem 1.5rem; } }
 
 .testimonials {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   align-items: center; }
   .testimonials .splide__pagination {
     padding-bottom: 2rem; }
