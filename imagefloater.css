@@ -11,9 +11,9 @@
 }
 
 
-.topper{
-    /*margin-top: -80px;*/
-}
+/* .topper{
+    margin-top: -80px;
+} */
 
 
 .main-card{
@@ -65,14 +65,14 @@
 
 .main-card:hover .down-card{
   top: 200px;
-  background-color: #royalblue;
+  /* background-color: #royalblue; */
   align-items: center;
 }
 
 .main-card:hover .up-card{
   top: -90px;
-  background-color: #lightpink;
-  align-items: center;
+  /* background-color: #lightpink; */
+  /* align-items: center; */
 }
 
 .main-card:hover{
